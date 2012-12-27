@@ -1,0 +1,29 @@
+[ui]
+username = Nathan Goldbaum <goldbaum@ucolick.org>
+editor = emacs -nw
+
+[extdiff]
+cmd.kdiff3 =
+
+[merge-tools]
+kdiff3.args = $base $local $other -o $output
+
+[extensions]
+extdiff =
+mq =
+config = $YT_DEST/src/yt-supplemental/cedit
+hgbb = $YT_DEST/src/yt-supplemental/hgbb/hgbb.py
+color =
+pager =
+record =
+graphlog = 
+churn =
+purge =
+
+[pager]
+pager = LESS='FSRX' less
+attend = annotate, cat, diff, export, glog, log, qdiff, heads
+
+[bb]
+username = ngoldbaum
+default_method = ssh
