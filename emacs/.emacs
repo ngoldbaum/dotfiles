@@ -1,10 +1,6 @@
 (add-to-list 'load-path "~/.emacs.d/custom/")
 (require 'rst)
 
-(setq auto-mode-alist
-      (append '(("\\.rst$" . rst-mode)
-                ("\\.rest$" . rst-mode)) auto-mode-alist))
-
 (setq line-number-mode t)
 (setq column-number-mode t)
 (setq-default fill-column 80)
@@ -83,8 +79,13 @@
                         ("\\.yml\\'"      . yaml-mode)
                         ("\\.lisp\\'"     . lisp-mode)
 			("\\.pyx\\'"      . cython-mode)
-			("\\.pro\\'"      . idlwave-mode)))
+			("\\.pro\\'"      . idlwave-mode)
+			("\\.zshrc\\'"    . sh-mode)
+			("\\.rst$"        . rst-mode)
+			("\\.rest$"       . rst-mode)))
 
+;; Don't need to spell out yes or no
 (fset 'yes-or-no-p 'y-or-n-p)
 
+;; tab is two characters 
 (setq-default c-basic-offset 2)
