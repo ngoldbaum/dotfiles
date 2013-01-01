@@ -1,24 +1,22 @@
 [ui]
 username = Nathan Goldbaum <goldbaum@ucolick.org>
 editor = emacs -nw
-
-[extdiff]
-cmd.kdiff3 =
+merge = emacs
 
 [merge-tools]
-kdiff3.args = $base $local $other -o $output
+emacs.args = -q --eval "(ediff-merge-with-ancestor \"$local\" \"$other\" \"$base\" nil \"$output\")"
 
 [extensions]
-extdiff =
 mq =
-config = $YT_DEST/src/yt-supplemental/cedit
-hgbb = $YT_DEST/src/yt-supplemental/hgbb/hgbb.py
+hgbb = /Users/goldbaum/Documents/hg-extensions/hgbb/hgbb.py
+prompt = /Users/goldbaum/Documents/hg-extensions/hg-prompt/prompt.py
 color =
 pager =
 record =
 graphlog = 
 churn =
 purge =
+progress =
 
 [pager]
 pager = LESS='FSRX' less
