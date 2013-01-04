@@ -41,3 +41,5 @@ unsetopt correct_all
 export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin:/usr/texbin:/usr/local/share/python
 
 export VERSIONER_PERL_PREFER_32_BIT
+
+export EDITOR='emacs -nw'
