@@ -82,7 +82,8 @@
 			("\\.pro\\'"      . idlwave-mode)
 			("\\.zshrc\\'"    . sh-mode)
 			("\\.rst$"        . rst-mode)
-			("\\.rest$"       . rst-mode)))
+			("\\.rest$"       . rst-mode)
+			("\\.rb\\'"       . ruby-mode)))
 
 ;; Don't need to spell out yes or no
 (fset 'yes-or-no-p 'y-or-n-p)
