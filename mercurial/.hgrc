@@ -16,7 +16,7 @@ record =
 graphlog = 
 churn =
 purge =
-
+progress =
 
 [pager]
 pager = LESS='FSRX' less
