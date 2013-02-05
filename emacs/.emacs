@@ -1,5 +1,4 @@
 (add-to-list 'load-path "~/.emacs.d/custom/")
-(require 'rst)
 
 (setq line-number-mode t)
 (setq column-number-mode t)
@@ -90,3 +89,20 @@
 
 ;; tab is two characters 
 (setq-default c-basic-offset 2)
+
+;; load auctex
+(load "auctex.el" nil t t)
+(load "preview-latex.el" nil t t)
+
+;; LaTeX synctex support.  Need skim.app installed.
+(add-hook 'LaTeX-mode-hook 
+	  (lambda ()
+	    ;; Enable source-specials for Control-click forward/reverse search.
+	    (TeX-PDF-mode 1)
+	    (TeX-source-correlate-mode 1)
+	    (setq TeX-source-correlate-method 'synctex)	    
+	    (setq TeX-view-program-list
+		  '(("Skim" 
+		     "/Applications/Skim.app/Contents/SharedSupport/displayline -g %n %o %b"))
+		  TeX-view-program-selection
+		  '((output-pdf "Skim")))))
