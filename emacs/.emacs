@@ -1,4 +1,5 @@
 (add-to-list 'load-path "~/.emacs.d/custom/")
+(add-to-list 'load-path' "/usr/local/share/emacs/site-lisp")
 
 (setq line-number-mode t)
 (setq column-number-mode t)
@@ -91,7 +92,7 @@
 (setq-default c-basic-offset 2)
 
 ;; load auctex
-(load "auctex.el" nil t t)
+(require 'tex-site)
 (load "preview-latex.el" nil t t)
 
 ;; LaTeX synctex support.  Need skim.app installed.
