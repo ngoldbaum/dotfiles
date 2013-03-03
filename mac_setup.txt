@@ -1,0 +1,52 @@
+Setting up a new computer:
+
+Apple updates
+iWork
+Xcode
+iTerm2
+Mail
+Chrome
+uTorrent
+Dropbox
+XQuartz
+
+ssh private keys
+
+homebrew:
+ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
+
+brew -v install wget
+brew -v install hdf5
+brew -v install python
+brew -v install ffmpeg
+brew -v install ccache
+brew -v install zeromq
+brew -v install mercurial
+brew -v install imagemagick --with-x11
+brew -v install gfortran
+brew -v install openmpi 
+
+hg clone https://bitbucket.org/ngoldbaum/dotfiles
+
+curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
+
+copy zsh theme, .zshrc
+copy .emacs, .emacs.d
+
+brew install auctex --with-emacs=/usr/bin/emacs
+
+pip install numpy
+pip install matplotlib
+pip install ipython
+pip install tornado
+pip install pyzmq
+pip install Cython
+pip install mpi4py
+pip install h5py
+pip install forthon
+pip install nose
+pip install python-hglib
+
+cd ~/Documents
+
+pip install -e hg+http://bitbucket.org/yt_analysis/yt#egg=yt-hg
