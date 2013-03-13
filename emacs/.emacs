@@ -107,3 +107,6 @@
 		     "/Applications/Skim.app/Contents/SharedSupport/displayline -g %n %o %b"))
 		  TeX-view-program-selection
 		  '((output-pdf "Skim")))))
+
+(setq c-default-style "bsd"
+      c-basic-offset 2)
