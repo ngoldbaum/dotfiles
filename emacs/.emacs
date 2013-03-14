@@ -108,5 +108,15 @@
 		  TeX-view-program-selection
 		  '((output-pdf "Skim")))))
 
-(setq c-default-style "bsd"
-      c-basic-offset 2)
+(setq c-default-style "bsd")
+
+(setq whitespace-trailing-regexp
+  "\\b\\(\\(\t\\| \\|\xA0\\|\x8A0\\|\x920\\|\xE20\\|\xF20\\)+\\)$")
+
+(add-hook 'c-mode-common-hook 'python-mode-hook
+  (lambda()
+    (add-hook 'write-contents-functions
+      (lambda()
+        (save-excursion
+          (delete-trailing-whitespace))))))
+
