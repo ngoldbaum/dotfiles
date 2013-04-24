@@ -61,7 +61,6 @@
                         ("\\.f90\\'"      . f90-mode)
                         ("\\.F90\\'"      . f90-mode)
                         ("\\.el\\'"       . emacs-lisp-mode)
-                        ("\\.emacs\\'"    . emacs-lisp-mode)
                         ("\\.tex\\'"      . LaTeX-mode)
                         ("\\.bib\\'"      . bibtex-mode)
                         ("[Mm]akefile\\'" . makefile-mode)
@@ -88,7 +87,7 @@
 ;; Don't need to spell out yes or no
 (fset 'yes-or-no-p 'y-or-n-p)
 
-;; tab is two characters 
+;; tab is two characters
 (setq-default c-basic-offset 2)
 
 ;; load auctex
@@ -96,27 +95,49 @@
 (load "preview-latex.el" nil t t)
 
 ;; LaTeX synctex support.  Need skim.app installed.
-(add-hook 'LaTeX-mode-hook 
+(add-hook 'LaTeX-mode-hook
 	  (lambda ()
 	    ;; Enable source-specials for Control-click forward/reverse search.
 	    (TeX-PDF-mode 1)
 	    (TeX-source-correlate-mode 1)
-	    (setq TeX-source-correlate-method 'synctex)	    
+	    (setq TeX-source-correlate-method 'synctex)
 	    (setq TeX-view-program-list
-		  '(("Skim" 
+		  '(("Skim"
 		     "/Applications/Skim.app/Contents/SharedSupport/displayline -g %n %o %b"))
 		  TeX-view-program-selection
 		  '((output-pdf "Skim")))))
 
 (setq c-default-style "bsd")
 
-(setq whitespace-trailing-regexp
-  "\\b\\(\\(\t\\| \\|\xA0\\|\x8A0\\|\x920\\|\xE20\\|\xF20\\)+\\)$")
+(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 
-(add-hook 'c-mode-common-hook 'python-mode-hook
-  (lambda()
-    (add-hook 'write-contents-functions
-      (lambda()
-        (save-excursion
-          (delete-trailing-whitespace))))))
+(unless (require 'el-get nil 'noerror)
+  (with-current-buffer
+      (url-retrieve-synchronously
+       "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
+    (let (el-get-master-branch)
+      (goto-char (point-max))
+      (eval-print-last-sexp))))
+
+(el-get 'sync)
+
+(add-hook 'python-mode-hook 'auto-complete-mode)
+(add-hook 'python-mode-hook 'jedi:ac-setup)
+
+(require 'package)
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                         ("marmalade" . "http://marmalade-repo.org/packages/")
+                         ("melpa" . "http://melpa.milkbox.net/packages/")))
+
+(require 'ido)
+(ido-mode t)
+
+(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+
+(add-hook 'after-init-hook #'global-flycheck-mode)
+
+(add-to-list 'load-path "/Users/goldbaum/Documents/autopair/")
+(require 'autopair)
+(autopair-global-mode t)
+
 
