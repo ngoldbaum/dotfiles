@@ -1,27 +1,76 @@
 [ui]
-username = Nathan Goldbaum <goldbaum@ucolick.org>
+username = Nathan Goldbaum <ngoldbau@ucsc.edu>
 editor = emacs -nw
-merge = emacs
+merge = internal:merge3
+mergemarkers = detailed
 
-[merge-tools]
-emacs.args = -q --eval "(ediff-merge-with-ancestor \"$local\" \"$other\" \"$base\" nil \"$output\")"
+[email]
+method = smtp
+from = Nathan Goldbaum <ngoldbau@ucsc.edu>
+to = mercurial-devel@selenic.com
+
+[smtp]
+host = smtp.gmail.com
+port = 587
+tls = starttls
+username = nathan12343@gmail.com
+password = gkeolzrkaiftygsx
+
+[hostfingerprints]
+smtp.gmail.com = d3:7c:82:fc:d0:5f:8f:d7:da:a2:59:8c:42:d7:b2:9f:c1:9f:7e:60
+
+[alias]
+glog = log -G
+st = status --copies
+record = commit -i
 
 [extensions]
-mq =
-hgbb = /Users/goldbaum/Documents/hg-extensions/hgbb/hgbb.py
-prompt = /Users/goldbaum/Documents/hg-extensions/hg-prompt/prompt.py
+hgbb = /Users/goldbaum/Documents/hgbb/hgbb.py
+prompt = /Users/goldbaum/Documents/dotfiles/hg-prompt/prompt.py
+#remotenames = /Users/goldbaum/Documents/hgremotenames/remotenames.py
 color =
 pager =
-record =
-graphlog = 
 churn =
+convert =
 purge =
 progress =
+rebase =
+histedit =
+shelve =
+strip = 
+transplant = 
+evolve = /Users/goldbaum/Documents/mutable-history/hgext/evolve.py
+#hgwatchman = /Users/goldbaum/Documents/hgwatchman/hgwatchman
+patchbomb=
+extdiff=
 
 [pager]
-pager = LESS='FSRX' less
-attend = annotate, cat, diff, export, glog, log, qdiff, heads
+pager = LESS='FRX' less
+attend = annotate, cat, diff, export, glog, log, qdiff, heads, outgoing, churn, help
 
 [bb]
 username = ngoldbaum
 default_method = ssh
+
+#[watchman]
+#mode = on
+
+[merge-tools]
+editmerge.args=$output
+editmerge.check=changed
+editmerge.premerge=keep
+
+[hooks]
+#pretxncommit.pdb = hg export tip | (! egrep -q '^\+.*pdb\.set_trace\(\).*$')
+#pretxncommit.nocommit = hg export tip | (! egrep -q '^\+.*#[ \t]*NOCOMMIT.*$')
+
+[remotenames]
+suppressbranches = True
+syncbookmarks = False
+
+[experimental]
+crecord = True
+
+[diff]
+showfunc = True
+git = True

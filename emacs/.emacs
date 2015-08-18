@@ -1,24 +1,48 @@
-(add-to-list 'load-path "~/.emacs.d/custom/")
-(add-to-list 'load-path' "/usr/local/share/emacs/site-lisp")
+(require 'package)
+(package-initialize)
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                         ("marmalade" . "http://marmalade-repo.org/packages/")
+                         ("melpa" . "http://melpa.milkbox.net/packages/")))
+
+(add-to-list 'custom-theme-load-path "~/Documents/emacs-color-theme-solarized")
+(add-to-list 'load-path "~/Documents/emacs-color-theme-solarized")
+;; make the fringe stand out from the background
+(setq solarized-distinct-fringe-background t)
+
+;; make the modeline high contrast
+(setq solarized-high-contrast-mode-line t)
+
+(load-theme 'solarized-dark t)
+
+(require 'helm-config)
+
+(if (display-graphic-p)
+	(x-focus-frame nil)
+  )
+
+(add-to-list 'load-path "/Users/goldbaum/.emacs.d/emacs.d/custom")
+(add-to-list 'load-path "/usr/local/share/emacs/site-lisp")
+(load-library "misc-cmds")
 
 (setq line-number-mode t)
 (setq column-number-mode t)
 (setq-default fill-column 80)
 
 ;; always end a file with a newline
-(setq require-final-newline t)
+;; (setq require-final-newline t)
 
 ;;to display time
 (display-time)
 
 ;;to set the cursor color
 (set-cursor-color "red")
-
 ;;to set foreground color to white
 (set-foreground-color "white")
 
 ;;to set background color to black
 (set-background-color "black")
+
+(show-paren-mode t)
 
 ;;don't clutter my filesystem
 (setq
@@ -37,7 +61,10 @@
 (setq frame-background-mode 'dark)
 
 ;; adding custom modes
-(autoload `cython-mode "cython-mode.el" "Major mode for editing cython code" t)
+(autoload `cython-mode 
+  "cython-mode.el" "Major mode for editing cython code" t)
+(autoload `markdown-mode
+  "markdown-mode.el" "Major mode for editing Markdown files" t)
 
 (setq auto-mode-alist '(("\\.ad[bs]\\'"   . ada-mode)
                         ("\\.awk\\'"      . awk-mode)
@@ -61,6 +88,7 @@
                         ("\\.f90\\'"      . f90-mode)
                         ("\\.F90\\'"      . f90-mode)
                         ("\\.el\\'"       . emacs-lisp-mode)
+						("\\.emacs\\'"    . emacs-lisp-mode)
                         ("\\.tex\\'"      . LaTeX-mode)
                         ("\\.bib\\'"      . bibtex-mode)
                         ("[Mm]akefile\\'" . makefile-mode)
@@ -77,57 +105,17 @@
                         ("\\.py\\'"       . python-mode)
                         ("\\.yml\\'"      . yaml-mode)
                         ("\\.lisp\\'"     . lisp-mode)
-			("\\.pyx\\'"      . cython-mode)
-			("\\.pro\\'"      . idlwave-mode)
-			("\\.zshrc\\'"    . sh-mode)
-			("\\.rst$"        . rst-mode)
-			("\\.rest$"       . rst-mode)
-			("\\.rb\\'"       . ruby-mode)))
+						("\\.pyx\\'"      . cython-mode)
+						("\\.pro\\'"      . idlwave-mode)
+						("\\.zshrc\\'"    . sh-mode)
+						("\\.rst$"        . rst-mode)
+                        ("\\.markdown\\'" . markdown-mode)
+                        ("\\.md\\'"       . markdown-mode)
+						("\\.rest$"       . rst-mode)
+						("\\.rb\\'"       . ruby-mode)))
 
 ;; Don't need to spell out yes or no
 (fset 'yes-or-no-p 'y-or-n-p)
-
-;; tab is two characters
-(setq-default c-basic-offset 2)
-
-;; load auctex
-(require 'tex-site)
-(load "preview-latex.el" nil t t)
-
-;; LaTeX synctex support.  Need skim.app installed.
-(add-hook 'LaTeX-mode-hook
-	  (lambda ()
-	    ;; Enable source-specials for Control-click forward/reverse search.
-	    (TeX-PDF-mode 1)
-	    (TeX-source-correlate-mode 1)
-	    (setq TeX-source-correlate-method 'synctex)
-	    (setq TeX-view-program-list
-		  '(("Skim"
-		     "/Applications/Skim.app/Contents/SharedSupport/displayline -g %n %o %b"))
-		  TeX-view-program-selection
-		  '((output-pdf "Skim")))))
-
-(setq c-default-style "bsd")
-
-(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
-
-(unless (require 'el-get nil 'noerror)
-  (with-current-buffer
-      (url-retrieve-synchronously
-       "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
-    (let (el-get-master-branch)
-      (goto-char (point-max))
-      (eval-print-last-sexp))))
-
-(el-get 'sync)
-
-(add-hook 'python-mode-hook 'auto-complete-mode)
-(add-hook 'python-mode-hook 'jedi:ac-setup)
-
-(require 'package)
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ("marmalade" . "http://marmalade-repo.org/packages/")
-                         ("melpa" . "http://melpa.milkbox.net/packages/")))
 
 (require 'ido)
 (ido-mode t)
@@ -136,8 +124,193 @@
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
-(add-to-list 'load-path "/Users/goldbaum/Documents/autopair/")
-(require 'autopair)
-(autopair-global-mode t)
+;(require 'autopair)
+;(autopair-global-mode)
+
+;(require 'auto-complete)
+;(require 'auto-complete-config)
+;(require 'auto-complete-clang)
+;(ac-config-default)
+;(global-auto-complete-mode t)
+
+; nifty indicator at 80 columns
+(require 'fill-column-indicator)
+;(add-hook 'after-change-major-mode-hook 'fci-mode)
+
+;; Useful interfaces for command line python tools
+(require 'grin)
+(require 'pyflakes)
+
+;(add-hook 'python-mode-hook
+;          (lambda ()
+;            (pymacs-load "ropemacs" "rope-")))
+
+;; tab is four characters
+(setq-default tab-width 4)
+(setq-default c-basic-offset 2)
+
+;; Spaces instead of tabs in all modes
+(setq-default indent-tabs-mode nil)
+
+(set-face-attribute 'default nil :height 120)
+ (if window-system
+      (set-frame-size (selected-frame) 95 50))
+
+(setq inhibit-splash-screen t)
+
+(setq focus-follows-mouse t)
+(setq mouse-autoselect-window t)
+(require 'follow-mouse)
+(turn-on-follow-mouse)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(TeX-clean-confirm nil)
+ '(TeX-command-list
+   (quote
+    (("latexmk" "latexmk -pdf %s" TeX-run-TeX nil t :help "Run latexmk on file")
+     ("TeX" "%(PDF)%(tex) %`%S%(PDFout)%(mode)%' %t" TeX-run-TeX nil
+      (plain-tex-mode texinfo-mode ams-tex-mode)
+      :help "Run plain TeX")
+     ("LaTeX" "%`%l%(mode)%' %t" TeX-run-TeX nil
+      (latex-mode doctex-mode)
+      :help "Run LaTeX")
+     ("Makeinfo" "makeinfo %t" TeX-run-compile nil
+      (texinfo-mode)
+      :help "Run Makeinfo with Info output")
+     ("Makeinfo HTML" "makeinfo --html %t" TeX-run-compile nil
+      (texinfo-mode)
+      :help "Run Makeinfo with HTML output")
+     ("AmSTeX" "%(PDF)amstex %`%S%(PDFout)%(mode)%' %t" TeX-run-TeX nil
+      (ams-tex-mode)
+      :help "Run AMSTeX")
+     ("ConTeXt" "texexec --once --texutil %(execopts)%t" TeX-run-TeX nil
+      (context-mode)
+      :help "Run ConTeXt once")
+     ("ConTeXt Full" "texexec %(execopts)%t" TeX-run-TeX nil
+      (context-mode)
+      :help "Run ConTeXt until completion")
+     ("BibTeX" "bibtex %s" TeX-run-BibTeX nil t :help "Run BibTeX")
+     ("Biber" "biber %s" TeX-run-Biber nil t :help "Run Biber")
+     ("View" "%V" TeX-run-discard-or-function nil t :help "Run Viewer")
+     ("Print" "%p" TeX-run-command t t :help "Print the file")
+     ("Queue" "%q" TeX-run-background nil t :help "View the printer queue" :visible TeX-queue-command)
+     ("File" "%(o?)dvips %d -o %f " TeX-run-command t t :help "Generate PostScript file")
+     ("Index" "makeindex %s" TeX-run-command nil t :help "Create index file")
+     ("Check" "lacheck %s" TeX-run-compile nil
+      (latex-mode)
+      :help "Check LaTeX file for correctness")
+     ("Spell" "(TeX-ispell-document \"\")" TeX-run-function nil t :help "Spell-check the document")
+     ("Clean" "TeX-clean" TeX-run-function nil t :help "Delete generated intermediate files")
+     ("Clean All" "(TeX-clean t)" TeX-run-function nil t :help "Delete generated intermediate and output files")
+     ("Other" "" TeX-run-command t t :help "Run an arbitrary command"))))
+ '(ansi-color-names-vector
+   ["#262626" "#d70000" "#5f8700" "#af8700" "#0087ff" "#af005f" "#00afaf" "#626262"])
+ '(background-color nil)
+ '(background-mode dark)
+ '(cursor-color nil)
+ '(custom-safe-themes
+   (quote
+    ("fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" default)))
+ '(ebib-autogenerate-keys t)
+ '(ebib-preload-bib-files (quote ("~/Documents/gravinst_paper/ms.bib")))
+ '(ebib-uniquify-keys t)
+ '(foreground-color nil))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(flycheck-error ((t (:foreground "brightred" :underline (:color "brightred" :style wave)))))
+ '(flycheck-warning ((t (:foreground "DarkOrange" :underline (:color "DarkOrange" :style wave))))))
+
+(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+
+(unless (require 'el-get nil 'noerror)
+  (with-current-buffer
+      (url-retrieve-synchronously
+       "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
+    (goto-char (point-max))
+    (eval-print-last-sexp)))
+
+(add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
+(el-get 'sync)
+
+;(add-hook 'python-mode-hook 'jedi:setup)
+;(setq jedi:setup-keys t)                      ; optional
+;(setq jedi:complete-on-dot t)                 ; optional
+
+(setq c-default-style "linux")
+
+(c-set-offset 'arglist-intro '++)
+(c-set-offset 'arglist-cont-nonempty '++)
+
+(add-hook 'c++-mode-hook
+          (lambda () (setq comment-start "/* " 
+                           comment-end " */" 
+                           comment-empty-lines t 
+                           comment-style 'extra-line)
+            )
+          )
+
+(global-set-key (kbd "M-n") 'next-error)
+(global-set-key (kbd "M-p") 'previous-error)
+
+(menu-bar-mode -1)
+
+(sml/setup)
+
+(setq make-backup-files nil)
+
+(put 'narrow-to-region 'disabled nil)
 
 
+;; AucTeX
+(setq TeX-auto-save t)
+(setq TeX-save-query nil) ;; autosave before compiling
+(setq TeX-parse-self t)
+(setq TeX-command-force "")
+(setq-default Tex-master nil)
+(add-hook 'LaTeX-mode-hook 'auto-fill-mode)
+(add-hook 'LaTeX-mode-hook 'flyspell-mode)
+(add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+(setq reftex-plug-into-AUCTeX t)
+(setq TeX-PDF-mode t)
+
+;; Use Skim as viewer, enable source <-> PDF sync
+;; make latexmk available via C-c C-c
+;; Note: SyncTeX is setup via ~/.latexmkrc (see below)
+(add-hook 'LaTeX-mode-hook (lambda ()
+                             (push
+                              '("latexmk" "latexmk -pdf %s" TeX-run-TeX nil t
+                                :help "Run latexmk on file")
+                              TeX-command-list)))
+(add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "latexmk")))
+
+;; use Skim as default pdf viewer
+;; Skim's displayline is used for forward search (from .tex to .pdf)
+;; option -b highlights the current line; option -g opens Skim in the background
+(setq TeX-view-program-selection '((output-pdf "PDF Viewer")))
+(setq TeX-view-program-list
+      '(("PDF Viewer" "/Applications/Skim.app/Contents/SharedSupport/displayline -b -g %n %o %b")))
+
+(load "server")
+(unless (server-running-p) (server-start))
+
+(setq bibtex-align-at-equal-sign t
+      bibtex-autokey-name-year-separator ""
+      bibtex-autokey-year-title-separator ""
+      bibtex-autokey-titleword-first-ignore '("the" "a" "if" "and" "an")
+      bibtex-autokey-titleword-length 0
+      bibtex-autokey-titlewords 0)
+
+
+(add-hook 'after-make-frame-functions
+          '(lambda (frame)
+             (select-frame frame)
+             (if window-system
+                 nil
+               (load-theme 'solarized-dark t))))
