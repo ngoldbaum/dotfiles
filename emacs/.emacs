@@ -20,7 +20,7 @@
 	(x-focus-frame nil)
   )
 
-(add-to-list 'load-path "/Users/goldbaum/.emacs.d/emacs.d/custom")
+(add-to-list 'load-path "/Users/goldbaum/.emacs.d/custom")
 (add-to-list 'load-path "/usr/local/share/emacs/site-lisp")
 (load-library "misc-cmds")
 
@@ -132,10 +132,6 @@
 ;(require 'auto-complete-clang)
 ;(ac-config-default)
 ;(global-auto-complete-mode t)
-
-; nifty indicator at 80 columns
-(require 'fill-column-indicator)
-;(add-hook 'after-change-major-mode-hook 'fci-mode)
 
 ;; Useful interfaces for command line python tools
 (require 'grin)
