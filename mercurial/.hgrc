@@ -25,9 +25,8 @@ st = status --copies
 record = commit -i
 
 [extensions]
-hgbb = /Users/goldbaum/Documents/hgbb/hgbb.py
-prompt = /Users/goldbaum/Documents/dotfiles/hg-prompt/prompt.py
-#remotenames = /Users/goldbaum/Documents/hgremotenames/remotenames.py
+hgbb = /home/goldbaum/hgbb/hgbb.py
+prompt = /home/goldbaum/hg-prompt/prompt.py
 color =
 pager =
 churn =
@@ -39,8 +38,7 @@ histedit =
 shelve =
 strip = 
 transplant = 
-evolve = /Users/goldbaum/Documents/mutable-history/hgext/evolve.py
-#hgwatchman = /Users/goldbaum/Documents/hgwatchman/hgwatchman
+evolve = /home/goldbaum/mutable-history/hgext/evolve.py
 patchbomb=
 extdiff=
 
