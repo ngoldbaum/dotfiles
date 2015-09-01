@@ -41,23 +41,13 @@ bindkey "$terminfo[kcud1]" history-substring-search-down
 
 unsetopt correct_all
 
-# Customize to your needs...
-export PATH=/usr/local/bin:/usr/local/sbin:/usr/local/opt/ruby/bin:/Users/goldbaum/Documents/charm/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin:/usr/texbin:$HOME/.cabal/bin
-
-export VERSIONER_PERL_PREFER_32_BIT
-
 fullpath() { find $PWD -name "$*"; }
 
 alias diff="colordiff -b"
 
 alias em='emacsclient -c'
 
+alias screen='screen -U'
+
 # this is the default list with DEPEND appended.
 export GRIN_ARGS='--skip-exts=.pyc,.pyo,.so,.o,.a,.tgz,.tar.gz,.rar,.zip,~,#,.bak,.png,.jpg,.gif,.bmp,.tif,.tiff,.pyd,.dll,.exe,.obj,.lib,DEPEND'
-
-autoload -Uz compinit && compinit
-autoload -Uz bashcompinit && bashcompinit
-source /Users/goldbaum/.oh-my-zsh/custom/plugins/ipython/ipython-completion.bash
-
-PERL_MB_OPT="--install_base \"/Users/goldbaum/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/Users/goldbaum/perl5"; export PERL_MM_OPT;
