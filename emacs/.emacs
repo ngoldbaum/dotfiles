@@ -6,13 +6,9 @@
 
 (add-to-list 'custom-theme-load-path "~/Documents/emacs-color-theme-solarized")
 (add-to-list 'load-path "~/Documents/emacs-color-theme-solarized")
-;; make the fringe stand out from the background
-(setq solarized-distinct-fringe-background t)
+(load-theme 'solarized t)
 
-;; make the modeline high contrast
-(setq solarized-high-contrast-mode-line t)
-
-(load-theme 'solarized-dark t)
+(setq solarized-termcolors '256)
 
 (require 'helm-config)
 
@@ -106,6 +102,7 @@
                         ("\\.yml\\'"      . yaml-mode)
                         ("\\.lisp\\'"     . lisp-mode)
 						("\\.pyx\\'"      . cython-mode)
+                        ("\\.pxd\\'"      . cython-mode)
 						("\\.pro\\'"      . idlwave-mode)
 						("\\.zshrc\\'"    . sh-mode)
 						("\\.rst$"        . rst-mode)
@@ -206,14 +203,82 @@
    ["#262626" "#d70000" "#5f8700" "#af8700" "#0087ff" "#af005f" "#00afaf" "#626262"])
  '(background-color nil)
  '(background-mode dark)
+ '(compilation-message-face (quote default))
+ '(cua-global-mark-cursor-color "#2aa198")
+ '(cua-normal-cursor-color "#839496")
+ '(cua-overwrite-cursor-color "#b58900")
+ '(cua-read-only-cursor-color "#859900")
  '(cursor-color nil)
  '(custom-safe-themes
    (quote
-    ("fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" default)))
+    ("8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" default)))
  '(ebib-autogenerate-keys t)
  '(ebib-preload-bib-files (quote ("~/Documents/gravinst_paper/ms.bib")))
  '(ebib-uniquify-keys t)
- '(foreground-color nil))
+ '(fci-rule-color "#073642")
+ '(foreground-color nil)
+ '(frame-background-mode (quote dark))
+ '(highlight-changes-colors (quote ("#d33682" "#6c71c4")))
+ '(highlight-symbol-colors
+   (--map
+    (solarized-color-blend it "#002b36" 0.25)
+    (quote
+     ("#b58900" "#2aa198" "#dc322f" "#6c71c4" "#859900" "#cb4b16" "#268bd2"))))
+ '(highlight-symbol-foreground-color "#93a1a1")
+ '(highlight-tail-colors
+   (quote
+    (("#073642" . 0)
+     ("#546E00" . 20)
+     ("#00736F" . 30)
+     ("#00629D" . 50)
+     ("#7B6000" . 60)
+     ("#8B2C02" . 70)
+     ("#93115C" . 85)
+     ("#073642" . 100))))
+ '(hl-bg-colors
+   (quote
+    ("#7B6000" "#8B2C02" "#990A1B" "#93115C" "#3F4D91" "#00629D" "#00736F" "#546E00")))
+ '(hl-fg-colors
+   (quote
+    ("#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36")))
+ '(magit-diff-use-overlays nil)
+ '(pos-tip-background-color "#073642")
+ '(pos-tip-foreground-color "#93a1a1")
+ '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#839496" 0.2))
+ '(solarized-broken-srgb nil)
+ '(solarized-degrade nil)
+ '(solarized-termcolors 256)
+ '(term-default-bg-color "#002b36")
+ '(term-default-fg-color "#839496")
+ '(vc-annotate-background nil)
+ '(vc-annotate-color-map
+   (quote
+    ((20 . "#dc322f")
+     (40 . "#ff7f00")
+     (60 . "#ffbf00")
+     (80 . "#b58900")
+     (100 . "#ffff00")
+     (120 . "#ffff00")
+     (140 . "#ffff00")
+     (160 . "#ffff00")
+     (180 . "#859900")
+     (200 . "#aaff55")
+     (220 . "#7fff7f")
+     (240 . "#55ffaa")
+     (260 . "#2affd4")
+     (280 . "#2aa198")
+     (300 . "#00ffff")
+     (320 . "#00ffff")
+     (340 . "#00ffff")
+     (360 . "#268bd2"))))
+ '(vc-annotate-very-old-color nil)
+ '(weechat-color-list
+   (quote
+    (unspecified "#002b36" "#073642" "#990A1B" "#dc322f" "#546E00" "#859900" "#7B6000" "#b58900" "#00629D" "#268bd2" "#93115C" "#d33682" "#00736F" "#2aa198" "#839496" "#657b83")))
+ '(xterm-color-names
+   ["#073642" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#eee8d5"])
+ '(xterm-color-names-bright
+   ["#002b36" "#cb4b16" "#586e75" "#657b83" "#839496" "#6c71c4" "#93a1a1" "#fdf6e3"]))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -255,8 +320,6 @@
 (global-set-key (kbd "M-p") 'previous-error)
 
 (menu-bar-mode -1)
-
-(sml/setup)
 
 (setq make-backup-files nil)
 
@@ -302,11 +365,3 @@
       bibtex-autokey-titleword-first-ignore '("the" "a" "if" "and" "an")
       bibtex-autokey-titleword-length 0
       bibtex-autokey-titlewords 0)
-
-
-(add-hook 'after-make-frame-functions
-          '(lambda (frame)
-             (select-frame frame)
-             (if window-system
-                 nil
-               (load-theme 'solarized-dark t))))
