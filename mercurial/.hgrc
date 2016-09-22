@@ -3,6 +3,7 @@ username = Nathan Goldbaum <ngoldbau@ucsc.edu>
 editor = emacs -nw
 merge = internal:merge3
 mergemarkers = detailed
+interface.chunkselector = curses
 
 [email]
 method = smtp
@@ -25,8 +26,8 @@ st = status --copies
 record = commit -i
 
 [extensions]
-hgbb = /home/goldbaum/hgbb/hgbb.py
-prompt = /home/goldbaum/hg-prompt/prompt.py
+hgbb = /Users/goldbaum/Documents/hgbb/hgbb.py
+prompt = /Users/goldbaum/Documents/hg-prompt/prompt.py
 color =
 pager =
 churn =
@@ -38,7 +39,7 @@ histedit =
 shelve =
 strip = 
 transplant = 
-evolve = /home/goldbaum/mutable-history/hgext/evolve.py
+evolve = /Users/goldbaum/Documents/mutable-history/hgext/evolve.py
 patchbomb=
 extdiff=
 
