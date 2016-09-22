@@ -35,9 +35,6 @@
 ;;to set foreground color to white
 (set-foreground-color "white")
 
-;;to set background color to black
-(set-background-color "black")
-
 (show-paren-mode t)
 
 ;;don't clutter my filesystem
@@ -242,6 +239,7 @@
    (quote
     ("#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36")))
  '(magit-diff-use-overlays nil)
+ '(package-selected-packages (quote (flycheck solarized-theme helm)))
  '(pos-tip-background-color "#073642")
  '(pos-tip-foreground-color "#93a1a1")
  '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#839496" 0.2))
