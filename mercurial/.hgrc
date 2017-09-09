@@ -1,6 +1,6 @@
 [ui]
-username = Nathan Goldbaum <ngoldbau@ucsc.edu>
-editor = emacs -nw
+username = Nathan Goldbaum <ngoldbau@illinois.edu>
+editor = emacsclient -nw
 merge = internal:merge3
 mergemarkers = detailed
 interface.chunkselector = curses
@@ -8,7 +8,7 @@ interface.chunkselector = curses
 [email]
 method = smtp
 from = Nathan Goldbaum <ngoldbau@ucsc.edu>
-to = mercurial-devel@selenic.com
+to = mercurial-devel@mercurial-scm.org
 
 [smtp]
 host = smtp.gmail.com
@@ -18,7 +18,7 @@ username = nathan12343@gmail.com
 password = gkeolzrkaiftygsx
 
 [hostfingerprints]
-smtp.gmail.com = d3:7c:82:fc:d0:5f:8f:d7:da:a2:59:8c:42:d7:b2:9f:c1:9f:7e:60
+smtp.gmail.com = e7:d7:bb:e5:e0:3b:5c:1c:87:7e:30:29:0c:ff:83:4b:e5:ef:e2:6c
 
 [alias]
 glog = log -G
@@ -26,12 +26,13 @@ st = status --copies
 record = commit -i
 
 [extensions]
+largefiles =
+mq =
 hgbb = /Users/goldbaum/Documents/hgbb/hgbb.py
 prompt = /Users/goldbaum/Documents/hg-prompt/prompt.py
-color =
-pager =
-churn =
+hggit = /Users/goldbaum/Documents/hg-git/hggit
 convert =
+churn =
 purge =
 progress =
 rebase =
@@ -39,13 +40,11 @@ histedit =
 shelve =
 strip = 
 transplant = 
-evolve = /Users/goldbaum/Documents/mutable-history/hgext/evolve.py
+evolve = /Users/goldbaum/Documents/mutable-history/hgext3rd/evolve
 patchbomb=
 extdiff=
-
-[pager]
-pager = LESS='FRX' less
-attend = annotate, cat, diff, export, glog, log, qdiff, heads, outgoing, churn, help
+show=
+#fsmonitor=
 
 [bb]
 username = ngoldbaum
@@ -67,9 +66,16 @@ editmerge.premerge=keep
 suppressbranches = True
 syncbookmarks = False
 
-[experimental]
-crecord = True
-
 [diff]
 showfunc = True
 git = True
+
+[committemplate]
+changeset = {desc}\n\n
+    HG: {extramsg}
+    HG: user: {author}\n{ifeq(p2rev, "-1", "",
+   "HG: branch merge\n")
+   }HG: branch '{branch}'\n{if(currentbookmark,
+   "HG: bookmark '{currentbookmark}'\n")  }{subrepos %
+   "HG: subrepo {subrepo}\n"              }
+   {splitlines(diff()) % 'HG: {line}\n'}
