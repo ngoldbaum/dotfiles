@@ -11,10 +11,7 @@ function hg_repo {
         fi
         d=../$d
     done
-    if [ r==1 ]
-    then
-        return
-    fi
+    return r
 }
 
 function prompt_char {
